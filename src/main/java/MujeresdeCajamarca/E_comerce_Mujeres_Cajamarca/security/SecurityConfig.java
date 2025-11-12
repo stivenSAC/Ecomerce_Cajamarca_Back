@@ -33,15 +33,8 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/api/auth/**", "/auth/**").permitAll()
-                .requestMatchers("/api/images/**").authenticated()
-                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/products").permitAll()
-                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/products/{id}").permitAll()
-                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/products/search").permitAll()
-                .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .anyRequest().permitAll()
+            );
 
         return http.build();
     }
