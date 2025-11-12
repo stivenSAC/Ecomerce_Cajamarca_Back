@@ -18,19 +18,31 @@ public class CorsConfig {
         // Orígenes permitidos
         configuration.setAllowedOrigins(Arrays.asList(
             "https://ecomercecajamarcafront-production.up.railway.app",
-            "http://localhost:5173"
+            "http://localhost:5173",
+            "http://localhost:3000"
         ));
         
         // Métodos permitidos
         configuration.setAllowedMethods(Arrays.asList(
-            "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"
+            "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"
         ));
         
         // Headers permitidos
-        configuration.addAllowedHeader("*");
+        configuration.setAllowedHeaders(Arrays.asList(
+            "Authorization", "Content-Type", "X-Requested-With", "Accept", 
+            "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"
+        ));
+        
+        // Headers expuestos
+        configuration.setExposedHeaders(Arrays.asList(
+            "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"
+        ));
         
         // Permitir credenciales
         configuration.setAllowCredentials(true);
+        
+        // Tiempo de cache para preflight
+        configuration.setMaxAge(3600L);
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
